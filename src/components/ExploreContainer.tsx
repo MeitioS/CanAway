@@ -17,7 +17,7 @@ const ExploreContainer: React.FC<ContainerProps> = () => {
           <IonCardContent className="ion-text-center">
           
               <a href="https://www.youtube.com/watch?v=a3Z7zEc7AXQ" className="ion-button">
-                <img src="src/img/CanAway.png" alt="Gambar CanAway"/>
+                <img src="src/components/Pictures/CanAway.png" alt="Gambar CanAway"/>
               </a>
               <p></p>
 
@@ -31,7 +31,7 @@ const ExploreContainer: React.FC<ContainerProps> = () => {
               </a>
               </p> */}
 
-              <IonButton routerLink={`/login`}>
+              <IonButton routerLink={`/home`}>
                   Login
               </IonButton>
 

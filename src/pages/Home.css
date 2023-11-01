@@ -1,0 +1,52 @@
+.menu-icon
+{
+    font-size: 24px;
+}
+
+.cart-icon
+{
+    font-size: 32px;
+}
+
+.product-list
+  {
+    padding: 40px;
+    border: 1px solid #ccc; 
+    text-align: center; 
+    margin: 10px;
+  }
+
+  .product-list img 
+  {
+    font-size: 50px;
+  }
+  
+  .product-list h2 {
+    font-size: 16px; 
+    margin: 10px 0; 
+  }
+  
+  .product-list p {
+    font-size: 14px; 
+    margin: 10px 0; 
+  }
+  
+  .product-list .wish-button
+  {
+    font-size:  3px;
+    position: absolute;
+    bottom: 15px;
+    left: 20px;
+  }
+  
+  .product-list .add-button
+  {
+    font-size: 3px;
+    position: absolute;
+    bottom: 15px;
+    right: 20px;
+  }
+
+  .sidebar-item {
+    margin-bottom: 10px;
+  }

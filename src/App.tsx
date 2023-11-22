@@ -11,6 +11,8 @@ import Sidebar from './components/Sidebar';
 import Wishlist from './pages/Wishlist';
 import Cart from './pages/Cart';
 import Login from './pages/Login';
+import History from './pages/History';
+import Profile from './pages/Profile';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -30,8 +32,6 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
-import History from './pages/History';
-import { useState } from 'react';
 
 setupIonicReact();
 
@@ -61,7 +61,9 @@ const App: React.FC = () => (
                 <Route exact path="/login">
                   <Login/>
                 </Route>
-                {/* <Route exact path="/profile" component={Profile}/> */}
+                <Route exact path="/profile">
+                  <Profile />
+                </Route>
                 <Redirect to="/login"/>
               </IonRouterOutlet>
             </IonReactRouter>

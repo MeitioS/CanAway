@@ -35,13 +35,14 @@ const Sidebar: React.FC = () => {
                     <IonLabel>History</IonLabel>
                 </IonItem>
                 </IonRouterLink>
-{/* 
+
                 <IonRouterLink routerLink="/profile">
                 <IonItem className="sidebar-item">
                     <IonIcon icon={person} slot="start" />
                     <IonLabel>Profile</IonLabel>
                 </IonItem>
-                </IonRouterLink> */}
+                
+                </IonRouterLink>
 
                 <DarkThemeToggle/>
                 

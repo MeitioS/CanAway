@@ -4,7 +4,8 @@ import sushi from '../components/Pictures/sushi.jpg'
 import nasihainam from '../components/Pictures/nasihainam.jpg'
 import topokki from '../components/Pictures/topokki.jpg'
 import burger from '../components/Pictures/burger.jpg'
-// import fotoprofil from '../components/Pictures/aaaa.png'
+import fotoprofil from '../components/Pictures/CanAway.png';
+
 
 export interface Product 
 {
@@ -61,11 +62,12 @@ export const ProductData: Product[] =
 
 ];
 
-// export const ProfileData: Profile[] =
-// [
-//     {id: 1, image: fotoprofil , Name: 'Dirsya Arrosyid Arsyad', NIM: '00000053741'}
+export const ProfileData: Profile[] =
+[
 
-// ]
+    {id: 1, image: fotoprofil , Name: 'CanAway', NIM: '124214'}
+
+]
 
 export const WishlistData: Wishlist[] = [];
 

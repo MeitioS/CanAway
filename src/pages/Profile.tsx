@@ -6,7 +6,7 @@ import { ProfileData } from '../components/DataProduct';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/storage';
-
+import { CameraModal } from '@capacitor/pwa-elements';
 
 const Profile: React.FC = () => {
 

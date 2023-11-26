@@ -10,28 +10,46 @@
 
 .product-list
   {
-    padding: 40px;
+    padding: 10px;
     border: 1px solid #ccc; 
     text-align: center; 
     margin: 10px;
+    position: relative;
   }
 
   .product-list img 
   {
-    font-size: 50px;
+    /* font-size: 50px; */
+    width: 100%;
+    height: auto;
   }
   
   .product-list h2 {
     font-size: 16px; 
-    margin: 10px 0; 
+    margin: 50px 0; 
   }
   
   .product-list p {
     font-size: 14px; 
     margin: 10px 0; 
   }
+
+  .product-list .wish-button,
+  .product-list .add-button {
+    font-size: 16px;
+    position: absolute;
+    bottom: 10px;
+  }
+
+  .product-list .wish-button {
+    left: 20px;
+  }
+
+  .product-list .add-button {
+    right: 20px;
+  }
   
-  .product-list .wish-button
+  /* .product-list .wish-button
   {
     font-size:  3px;
     position: absolute;
@@ -45,7 +63,7 @@
     position: absolute;
     bottom: 15px;
     right: 20px;
-  }
+  } */
 
   .sidebar-item {
     margin-bottom: 10px;

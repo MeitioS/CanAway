@@ -48,18 +48,14 @@ const Home: React.FC = () => {
                   <h2>{product.name}</h2>
                   {/* <p>Rp.{product.price}</p> */}
 
-
                   <IonButton fill="clear" slot="start" className={`wish-button ${wishlistData.some((item) => item.id === product.id) ? 'selected' : ''}`} 
                   onClick={() => WishlistButton(product.id)}>
                     <IonIcon icon={wishlistData.some((item) => item.id === product.id) ? star : starOutline} className="cart-icon"></IonIcon>
                   </IonButton>
 
-
                   <IonButton fill="clear" slot="end" className="add-button" onClick={() => cartAdd(product.id)}>
                     <IonIcon icon={add} className="cart-icon"></IonIcon>
                   </IonButton>
-
-
 
                 </div>
               </IonCol>
@@ -67,24 +63,7 @@ const Home: React.FC = () => {
           </IonRow>
 
       </IonGrid>
-
-
-
-
-
-
-
-
-
-
       </IonContent>
-
-
-
-
-
-
-
     </IonPage>
   );
 };

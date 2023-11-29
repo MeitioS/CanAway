@@ -6,20 +6,28 @@ import { ProfileData } from '../components/DataProduct';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/storage';
-import { CameraModal } from '@capacitor/pwa-elements';
+import { defineCustomElements } from '@ionic/pwa-elements/loader';
+// import '../firebaseConfig.ts';
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
 
 const Profile: React.FC = () => {
 
     const firebaseConfig = {
-        apiKey: "AIzaSyBJvKHmAanX_JpCiz0iSkH64KXvlPCEkMw",
-        authDomain: "mobilecrossplatform-53741.firebaseapp.com",
-        projectId: "mobilecrossplatform-53741",
-        storageBucket: "mobilecrossplatform-53741.appspot.com",
-        messagingSenderId: "1033704215927",
-        appId: "1:1033704215927:web:59b809bd2d1d512fddbd72",
-        measurementId: "G-6D4FKD1PWN"
-      };
-      
+      apiKey: "AIzaSyBfMLeI5AJMjy7_xN7bBBPcwoMEUEYIe1I",
+      authDomain: "canaway-9b215.firebaseapp.com",
+      projectId: "canaway-9b215",
+      storageBucket: "canaway-9b215.appspot.com",
+      messagingSenderId: "107306126925",
+      appId: "1:107306126925:web:0a1502ed8ebcbe4c1d9604",
+      measurementId: "G-LDGHT8K5E5"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+          
+    // const app = initializeApp(firebaseConfig);
+    
     firebase.initializeApp(firebaseConfig);
       
     const storage = firebase.storage();
@@ -29,6 +37,8 @@ const Profile: React.FC = () => {
     const [takenPhoto, setTakenPhoto] = useState<{path: string; preview: string}>();
 
     const takePhotoHandler = async () => {
+      try {
+      defineCustomElements(window);
         const photo = await Camera.getPhoto({
           resultType: CameraResultType.Uri,
           source: CameraSource.Camera,
@@ -45,17 +55,31 @@ const Profile: React.FC = () => {
         setTakenPhoto({ path: photo.path, preview: photo.webPath });
       
         const storageRef = storage.ref();
-        const imageName = "profile_photo_${new Date().getTime()}";
-        const imageRef = storageRef.child("Photos/${imageName}");
+        // const imageName = "profile_photo_${new Date().getTime()}";
+        // const imageRef = storageRef.child("Photos/${imageName}");
+
+        const imageName = `profile_photo_${new Date().getTime()}`;
+        const imageRef = storageRef.child(`Photos/${imageName}`);
       
-        if(photo.base64String)
-        {
-        await imageRef.putString(photo.base64String, "base64");
+        // if(photo.base64String)
+        // {
+        // await imageRef.putString(photo.base64String, "base64");
             
-        const downloadURL = await imageRef.getDownloadURL();
-        setProfilePicture(downloadURL);
-        console.log("Photo file uploaded to Firebase Storage:", downloadURL);
-        }
+        // const downloadURL = await imageRef.getDownloadURL();
+        // setProfilePicture(downloadURL);
+        // console.log("Photo file uploaded to Firebase Storage:", downloadURL);
+        // }
+
+          if (photo.base64String) {
+            await imageRef.putString(photo.base64String, "base64");
+            const downloadURL = await imageRef.getDownloadURL();
+            setProfilePicture(downloadURL);
+            console.log("Photo file uploaded to Firebase Storage:", downloadURL);
+          }
+        } catch (error) {
+           console.error("Error uploading photo to Firebase:", error);
+        
+      }
       };
       
 
@@ -77,7 +101,7 @@ const Profile: React.FC = () => {
                   <IonIcon icon={menuOutline} className="menu-icon"></IonIcon>
                 </IonButton>
               </IonMenuToggle>
-              <IonTitle>E-Shop</IonTitle>
+              <IonTitle>CanAway</IonTitle>
               <IonMenuToggle slot="end">
                 <IonRouterLink routerLink="/cart">
                   <IonButton className="sidebar-item">
@@ -120,4 +144,3 @@ const Profile: React.FC = () => {
     };                                          
 
 export default Profile;
-

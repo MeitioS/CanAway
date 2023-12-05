@@ -8,7 +8,7 @@ import { History } from '../components/DataProduct';
 
 const Cart: React.FC = () => {
 
-  const {cartData, clearCart, decreaseQuantity, increaseQuantity, totalPrice} = useCart();
+  const {cartData, clearCart, decreaseQuantity, increaseQuantity} = useCart();
   
   const checkout = () => 
   {
@@ -78,7 +78,7 @@ const Cart: React.FC = () => {
 
       <div className="centered-content">
       <IonCard className="checkout-card" style={{ width: '200px', height: '200px', textAlign: 'center' }}>
-        <IonLabel>Total Price: Rp.{totalPrice()}</IonLabel>
+        <IonLabel>Total Price: Rp.</IonLabel>
         <IonButton onClick={checkout} size="small" color="success">
           <IonIcon icon={checkmark} slot="start" />
           Checkout

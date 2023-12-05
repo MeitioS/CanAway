@@ -13,6 +13,7 @@ import Cart from './pages/Cart';
 import Login from './pages/Login';
 import History from './pages/History';
 import Profile from './pages/Profile';
+import Register from './pages/Register';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -51,6 +52,9 @@ const App: React.FC = () => (
                 </Route>
                 <Route exact path="/wishlist">
                   <Wishlist/>
+                </Route>
+                <Route exact path="/register">
+                  <Register/>
                 </Route>
                 <Route exact path="/cart">
                   <Cart/>

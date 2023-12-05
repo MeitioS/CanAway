@@ -5,11 +5,13 @@ import React, { useState } from 'react';
 import { signInWithEmailAndPassword} from 'firebase/auth';
 import { auth } from '../firebase';
 import { useIonRouter } from '@ionic/react'
+import { IonAlert } from '@ionic/react';
 
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showAlert, setShowAlert] = useState(false);
   const router = useIonRouter();
 
   const handleLogin = async () => {
@@ -23,6 +25,7 @@ const Login: React.FC = () => {
     {
       console.error('Login failed:', error.message);
       //gabisa login
+      setShowAlert(true);
     }
   };
 
@@ -78,6 +81,16 @@ const Login: React.FC = () => {
           </IonCardContent>
         </IonCard>
       </IonContent>
+
+      <IonAlert
+        isOpen={showAlert}
+        onDidDismiss={() => setShowAlert(false)}
+        header={'Login Gagal'}
+        subHeader={'Email atau Password Salah'}
+        message={'Silahkan dicek ulang Password atau Emailnya'}
+        buttons={['OK']}
+      />
+
     </IonPage>
   );
 };

@@ -20,18 +20,6 @@ const Wishlist: React.FC = () => {
               </IonButton>
             </IonMenuToggle>
             <IonTitle>CanAway</IonTitle>
-            <IonMenuToggle slot="end">
-            <IonRouterLink routerLink="/cart">
-              <IonButton className="sidebar-item">
-                <IonIcon icon={cart} className="cart-icon"></IonIcon>
-                {cartData.length > 0 && (
-                  <div className="notification-circle">
-                    {cartData.length}
-                  </div>
-                )}
-              </IonButton>
-          </IonRouterLink>
-            </IonMenuToggle>
           </IonToolbar>
         </IonHeader>
 

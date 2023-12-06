@@ -137,13 +137,6 @@ const initializeFirebase = (): FirebaseApp =>
             </IonButton>
           </IonMenuToggle>
           <IonTitle>CanAway</IonTitle>
-          <IonMenuToggle slot="end">
-            <IonRouterLink routerLink="/cart">
-              <IonButton className="sidebar-item">
-                <IonIcon icon={cart} className="cart-icon"></IonIcon>
-              </IonButton>
-            </IonRouterLink>
-          </IonMenuToggle>
         </IonToolbar>
       </IonHeader>
 

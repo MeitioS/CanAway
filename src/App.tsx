@@ -34,8 +34,8 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 import AddMenu from './components/AddMenu';
-import Delete from './components/Delete';
-import Edit from './components/Edit';
+// import Delete from './components/Delete';
+// import Edit from './components/Edit';
 
 setupIonicReact();
 
@@ -62,8 +62,8 @@ const App: React.FC = () => (
                 <Route exact path="/cart">
                   <Cart/>
                 </Route>
-                <Route path="/edit/:productId" component={Edit} />
-                <Route path="/delete/:productId" component={Delete} />
+                <Route path="/edit/:productId" component={Home} />
+                <Route path="/delete/:productId" component={Home} />
                 <Route exact path="/history">
                   <History/>
                 </Route>

@@ -1,12 +1,12 @@
 // src/pages/Login.tsx
-import {IonButton,IonCard,IonCardContent,IonCol,IonContent,IonHeader,IonInput,
+import {IonButton,IonCard,IonCardContent,IonCol,IonContent,IonHeader,IonImg,IonInput,
 IonItem,IonLabel,IonPage,IonRow,IonTitle,IonToolbar,} from '@ionic/react';
 import React, { useState } from 'react';
 import { signInWithEmailAndPassword} from 'firebase/auth';
 import { auth } from '../firebase';
 import { useIonRouter } from '@ionic/react'
 import { IonAlert } from '@ionic/react';
-
+import './Login.css';
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -45,6 +45,9 @@ const Login: React.FC = () => {
       <IonContent className="ion-padding">
         <IonCard>
           <IonCardContent>
+              {/* <img src="src/components/Pictures/CanAway.png" alt="Gambar CanAway" style="align-items: center"/> */}
+              <IonImg src='src/components/Pictures/CanAway.png' alt='Gambar CanAway' className='logo'/>
+              <p></p>
             <IonItem>
               <IonLabel position="floating">Email</IonLabel>
               <IonInput

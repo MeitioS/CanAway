@@ -23,43 +23,43 @@ export const addProductToFirebase = async (product: Product) => {
     }
   };
   
-  export const updateProductInFirebase = async (productId: number, updatedProduct: Product) => {
-    const db = getFirestore(firebase);
-    const docRef = doc(db, 'products', productId.toString());
-    await updateDoc(docRef, { ...updatedProduct });
-  };
+  // export const updateProductInFirebase = async (productId: number, updatedProduct: Product) => {
+  //   const db = getFirestore(firebase);
+  //   const docRef = doc(db, 'products', productId.toString());
+  //   await updateDoc(docRef, { ...updatedProduct });
+  // };
   
-  export const deleteProductFromFirebase = async (productId: number) => {
-    const db = getFirestore(firebase);
+  // export const deleteProductFromFirebase = async (productId: number) => {
+  //   const db = getFirestore(firebase);
   
-    try {
-      // Get the document data to retrieve the file path
-      const docRef = doc(db, 'products', productId.toString());
-      const docSnapshot = await getDoc(docRef);
+  //   try {
+  //     // Get the document data to retrieve the file path
+  //     const docRef = doc(db, 'products', productId.toString());
+  //     const docSnapshot = await getDoc(docRef);
   
-      if (docSnapshot.exists()) {
-        const data = docSnapshot.data();
+  //     if (docSnapshot.exists()) {
+  //       const data = docSnapshot.data();
   
-        // Delete the document from Firestore
-        await deleteDoc(docRef);
+  //       // Delete the document from Firestore
+  //       await deleteDoc(docRef);
   
-        // Delete the associated file from Firebase Storage
-        if (data && data.imagePath) {
-          const storage = getStorage(firebase);
-          const fileRef = ref(storage, data.imagePath);
+  //       // Delete the associated file from Firebase Storage
+  //       if (data && data.imagePath) {
+  //         const storage = getStorage(firebase);
+  //         const fileRef = ref(storage, data.imagePath);
   
-          await deleteObject(fileRef);
-        }
+  //         await deleteObject(fileRef);
+  //       }
   
-        console.log('Product deleted successfully!');
-      } else {
-        console.error('Document not found for deletion.');
-      }
-    } catch (error) {
-      console.error('Error deleting product from Firebase:', error);
-      throw error; // Rethrow the error to handle it in the component
-    }
-  };
+  //       console.log('Product deleted successfully!');
+  //     } else {
+  //       console.error('Document not found for deletion.');
+  //     }
+  //   } catch (error) {
+  //     console.error('Error deleting product from Firebase:', error);
+  //     throw error; // Rethrow the error to handle it in the component
+  //   }
+  // };
   
   
   export const readProductsFromFirebase = async (): Promise<Product[]> => {
@@ -152,28 +152,28 @@ export const CartData: Cart[] = [];
 
 export const HistoryData: History[] = [];
 
-export const getProductById = async (productId: number): Promise<Product | null> => {
-    try {
-      const db = getFirestore(firebase);
-      const docRef = doc(db, 'products', productId.toString());
-      const docSnapshot = await getDoc(docRef);
+// export const getProductById = async (productId: number): Promise<Product | null> => {
+//     try {
+//       const db = getFirestore(firebase);
+//       const docRef = doc(db, 'products', productId.toString());
+//       const docSnapshot = await getDoc(docRef);
   
-      if (docSnapshot.exists()) {
-        const data = docSnapshot.data() as DocumentData;
-        const product: Product = {
-          id: +docSnapshot.id,
-          image: data.image,
-          name: data.name,
-          shopName: data.shopName,
-        };
+//       if (docSnapshot.exists()) {
+//         const data = docSnapshot.data() as DocumentData;
+//         const product: Product = {
+//           id: +docSnapshot.id,
+//           image: data.image,
+//           name: data.name,
+//           shopName: data.shopName,
+//         };
   
-        return product;
-      } else {
-        // Return null if the product with the given ID doesn't exist
-        return null;
-      }
-    } catch (error) {
-      console.error('Error fetching product by ID:', error);
-      throw error;
-    }
-  };
+//         return product;
+//       } else {
+//         // Return null if the product with the given ID doesn't exist
+//         return null;
+//       }
+//     } catch (error) {
+//       console.error('Error fetching product by ID:', error);
+//       throw error;
+//     }
+//   };

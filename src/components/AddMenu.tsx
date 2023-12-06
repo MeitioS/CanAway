@@ -55,11 +55,11 @@ const AddMenu: React.FC = () =>
       // Increment the next available ID for the next menu
       setNextProductId((prevId) => prevId + 1);
 
-      // You can add additional logic here, such as clearing the form or navigating to another page
+      
       alert('Product added successfully!');
       setNewProductName('');
       setNewProductImage(null);
-      setNewShopName(''); // Clear shopName
+      setNewShopName(''); 
     } catch (error) {
       console.error('Error adding product to Firebase:', error);
       alert('Error adding product. Please try again. Check the console for more details.');

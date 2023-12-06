@@ -24,7 +24,7 @@ const Login: React.FC = () => {
     catch (error: any) 
     {
       console.error('Login failed:', error.message);
-      //gabisa login
+      //jika tidak bisa login
       setShowAlert(true);
     }
   };

@@ -21,6 +21,7 @@ const DarkThemeToggle: React.FC = () => {
       <IonToggle slot="end" checked={darkMode} onIonChange={toggleDarkMode}></IonToggle>
     </IonItem>
   );
+  
 };
 
 export default DarkThemeToggle;

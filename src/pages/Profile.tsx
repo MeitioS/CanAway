@@ -54,10 +54,14 @@ const initializeFirebase = (): FirebaseApp =>
       async (base64String: string) => {
         try {
           console.log('Before uploading to Storage');
+  
           const storageRef: StorageReference = ref(storage, `Photos/profile_photo_${new Date().getTime()}`);
+          const bytes = new Uint8Array(atob(base64String).split('').map((char) => char.charCodeAt(0)));
   
-          await uploadBytes(storageRef, Buffer.from(base64String, 'base64'));
+          console.log('Uploading bytes to storage');
+          await uploadBytes(storageRef, bytes);
   
+          console.log('Upload complete. Getting download URL');
           const url: string = await getDownloadURL(storageRef);
           console.log('Storage URL', url);
   
@@ -71,11 +75,13 @@ const initializeFirebase = (): FirebaseApp =>
           // Now, you can add the URL to Firestore
           addData(url);
         } catch (uploadError) {
+          console.error('Error uploading photo to Firebase:', uploadError);
           setError('Error uploading photo to Firebase: ' + (uploadError as Error).message);
         }
       },
       [addData]
     );
+  
 
     const takePhotoHandler = useCallback(async () => {
       try {
@@ -88,22 +94,23 @@ const initializeFirebase = (): FirebaseApp =>
           quality: 80,
           width: 500,
         });
-  
+    
         console.log('After Taking Photo', photo);
-  
-        if (!photo || !photo.path || !photo.webPath || !photo.base64String) {
+    
+        if (!photo || !photo.webPath) {
           console.log('Invalid Photo');
           return;
         }
-  
+    
         // Proceed with uploading the photo to Firebase Storage
-        await uploadPhotoToStorage(photo.base64String);
+        await uploadPhotoToStorage(photo.base64String || ''); // Use an empty string if base64String is falsy
       } catch (error) {
         setError('Error taking photo: ' + (error as Error).message);
       } finally {
         setLoading(false);
       }
     }, [uploadPhotoToStorage]);
+    
   
     return {
       takePhotoHandler,
@@ -158,10 +165,12 @@ const initializeFirebase = (): FirebaseApp =>
                   <IonButton onClick={takePhotoHandler}>
                     {/* Display the taken photo or the default profile picture */}
                     <img
-                      src={takenPhoto?.webPath ? (blobToDataURL(takenPhoto.webPath)) : profilePicture}
+                      src={takenPhoto?.webPath ? takenPhoto.webPath : profilePicture}
                       alt="Profile"
                       style={{ width: '150px', height: 'auto' }}
+                      crossOrigin="anonymous"
                     />
+
                     <IonIcon icon={camera} />
                   </IonButton>
                   <h2>{ProfileData[0].Name}</h2>

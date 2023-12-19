@@ -21,22 +21,7 @@ const Sidebar: React.FC = () => {
                     <IonLabel>Home</IonLabel>
                 </IonItem>
                 </IonRouterLink>
-
-                <IonRouterLink routerLink="/wishlist">
-                <IonItem className="sidebar-item">
-                    <IonIcon icon={cartOutline} slot="start" />
-                    <IonLabel>Wishlist</IonLabel>
-                </IonItem>
-                </IonRouterLink>
-
-                <IonRouterLink routerLink="/history">
-                <IonItem className="sidebar-item">
-                    <IonIcon icon={archive} slot="start" />
-                    <IonLabel>History</IonLabel>
-                </IonItem>
-                </IonRouterLink>
-
-
+                
                 <IonRouterLink routerLink="/profile">
                 <IonItem className="sidebar-item">
                     <IonIcon icon={person} slot="start" />

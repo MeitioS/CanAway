@@ -1,17 +1,11 @@
 import { Redirect, Route } from 'react-router-dom';
 import { IonApp, IonMenu, IonRouterOutlet, setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import { ProductData} from './components/DataProduct';
-import { ContextProduct } from './components/ContextProduct';
-import { CartProvider } from './components/ContextCart';
-import { WishlistProvider } from './components/ContextWishlist';
+
 
 import Home from './pages/Home';
 import Sidebar from './components/Sidebar';
-import Wishlist from './pages/Wishlist';
-import Cart from './pages/Cart';
 import Login from './pages/Login';
-import History from './pages/History';
 import Profile from './pages/Profile';
 import Register from './pages/Register';
 
@@ -34,6 +28,8 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 import AddMenu from './components/AddMenu';
+import DeleteMenu from './components/DeleteMenu';
+import EditMenu from './components/EditMenu';
 // import Delete from './components/Delete';
 // import Edit from './components/Edit';
 
@@ -41,48 +37,33 @@ setupIonicReact();
 
 const App: React.FC = () => (
 
-  <WishlistProvider>
-  <CartProvider>
-  <ContextProduct.Provider value={ProductData}>
-    <IonApp>
-            <IonReactRouter>
-              <IonMenu contentId="main">
-                <Sidebar />
-              </IonMenu>
-              <IonRouterOutlet id="main">
-                <Route exact path="/home">
-                    <Home/>
-                </Route>
-                <Route exact path="/wishlist">
-                  <Wishlist/>
-                </Route>
-                <Route exact path="/register">
-                  <Register/>
-                </Route>
-                <Route exact path="/cart">
-                  <Cart/>
-                </Route>
-                <Route path="/edit/:productId" component={Home} />
-                <Route path="/delete/:productId" component={Home} />
-                <Route exact path="/history">
-                  <History/>
-                </Route>
-                <Route exact path="/login">
-                  <Login/>
-                </Route>
-                <Route exact path="/addmenu">
-                  <AddMenu/>
-                </Route>
-                <Route exact path="/profile">
-                  <Profile />
-                </Route>
-                <Redirect to="/login"/>
-              </IonRouterOutlet>
-            </IonReactRouter>
-    </IonApp>
-  </ContextProduct.Provider>
-  </CartProvider>
-  </WishlistProvider>
+  <IonApp>
+    <IonReactRouter>
+      <IonMenu contentId="main">
+        <Sidebar />
+      </IonMenu>
+      <IonRouterOutlet id="main">
+        <Route exact path="/home">
+          <Home />
+        </Route>
+        <Route exact path="/register">
+          <Register />
+        </Route>
+        <Route path="/edit/:id" component={EditMenu} />
+        <Route path="/delete/:id" component={DeleteMenu} />
+        <Route exact path="/login">
+          <Login />
+        </Route>
+        <Route exact path="/addmenu">
+          <AddMenu />
+        </Route>
+        <Route exact path="/profile">
+          <Profile />
+        </Route>
+        <Redirect to="/login" />
+      </IonRouterOutlet>
+    </IonReactRouter>
+  </IonApp>
 );
 
 export default App;

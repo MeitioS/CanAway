@@ -4,58 +4,32 @@ import { useHistory, useParams } from 'react-router-dom';
 import { Product, readProductsFromFirebase, deleteProductFromFirebase } from '../components/DataProduct';
 
 const DeleteMenu: React.FC = () => {
-
-  // Extract product ID from route parameters using useParams
   const { id } = useParams<{ id: string }>();
-  const productId = id;
-  
-  // Initialize history for navigation
   const history = useHistory();
-  
-  // State to hold the product information
   const [product, setProduct] = useState<Product | null>(null);
 
-  // Fetch the selected product from Firestore when the component mounts
-  useEffect(() => 
-  {
-    const fetchProduct = async () => 
-    {
-      // Read products from Firestore
+  useEffect(() => {
+    const fetchProduct = async () => {
       const productsFromFirestore = await readProductsFromFirebase();
-      
-      // Find the selected product by matching the product ID
-      const selectedProduct = productsFromFirestore.find((p) => p.id === productId);
-      
-      // Set the product in the state or null if not found
+      const selectedProduct = productsFromFirestore.find((p) => p.id === id);
       setProduct(selectedProduct || null);
     };
 
     fetchProduct();
-  }, [productId]);
+  }, [id]);
 
-  // Handle the deletion of the product
-  const handleDeleteProduct = async () => 
-  {
-    if (product) 
-    {
-      // Delete the product from Firestore
+  const handleDeleteProduct = async () => {
+    if (product) {
       await deleteProductFromFirebase(product.id);
-      
-      // Redirect to the home page after deletion
       history.push('/home');
     }
   };
 
-  // Handle the cancellation of the deletion
-  const handleCancel = () => 
-  {
-    // Redirect to the home page without deleting the product
+  const handleCancel = () => {
     history.push('/home');
   };
 
-  // Render a message if the product is not found
-  if (!product) 
-  {
+  if (!product) {
     return (
       <IonPage>
         <IonContent>
@@ -74,13 +48,15 @@ const DeleteMenu: React.FC = () => {
         <IonGrid>
           <IonRow>
             <IonCol>
-              <IonLabel>Are you sure you want to delete the product "{product.name}"?</IonLabel>
+              <IonLabel>
+                Are you sure you want to delete the product "{product?.name}"?
+              </IonLabel>
             </IonCol>
           </IonRow>
           <IonRow>
             <IonCol>
-              <IonButton onClick={handleDeleteProduct}>Delete</IonButton>
               <IonButton onClick={handleCancel}>Cancel</IonButton>
+              <IonButton onClick={handleDeleteProduct}>Delete</IonButton>
             </IonCol>
           </IonRow>
         </IonGrid>

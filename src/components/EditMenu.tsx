@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { IonButton, IonInput, IonLabel, IonPage, IonContent, IonGrid, IonRow, IonCol, IonSelect, IonSelectOption } from '@ionic/react';
-import { Product, updateProductInFirebase, readProductsFromFirebase } from '../components/DataProduct';
+import {IonButton,IonInput,IonLabel,IonPage,IonContent,IonGrid,IonRow,IonCol,IonSelect,IonSelectOption,} from '@ionic/react';
+import {Product,updateProductInFirebase,readProductsFromFirebase,} from '../components/DataProduct';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { firebase } from '../firebase';
 import { useHistory } from 'react-router';
 
-interface EditMenuProps 
-{
-  match: 
-  {
-    params: 
-    {
+interface EditMenuProps {
+  match: {
+    params: {
       id: string;
     };
   };
@@ -25,8 +22,7 @@ const EditMenu: React.FC<EditMenuProps> = ({ match }) => {
   const [updatedCategoryName, setUpdatedCategoryName] = useState<string>('');
   const history = useHistory();
 
-  useEffect(() => 
-  {
+  useEffect(() => {
     const fetchProduct = async () => {
       try {
         const products = await readProductsFromFirebase();
@@ -49,19 +45,17 @@ const EditMenu: React.FC<EditMenuProps> = ({ match }) => {
     fetchProduct();
   }, [productId]);
 
-  const handleEditMenu = async () => 
-  {
-    if (!updatedProductName.trim() || !updatedShopName.trim() || !updatedCategoryName.trim()) {
-      alert('Please fill out all fields.');
-      return;
-    }
-
+  const handleEditMenu = async () => {
     try {
+      if (!updatedProductName.trim() || !updatedShopName.trim() || !updatedCategoryName.trim()) {
+        alert('Please fill out all fields.');
+        return;
+      }
+
       let imageUrl = product?.image; // Use the existing image URL if no new image is selected
 
       // Check if a new image is selected
-      if (updatedProductImage) 
-      {
+      if (updatedProductImage) {
         // Upload the new image to Firebase Storage
         const storage = getStorage(firebase);
         const storageRef = ref(storage, `productImages/${updatedProductImage.name}`);
@@ -71,8 +65,7 @@ const EditMenu: React.FC<EditMenuProps> = ({ match }) => {
         imageUrl = await getDownloadURL(storageRef);
       }
 
-      if (productId) 
-      {
+      if (productId) {
         // Update the product with the new information
         await updateProductInFirebase(productId, {
           name: updatedProductName,

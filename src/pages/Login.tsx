@@ -12,11 +12,19 @@ const Login: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showAlert, setShowAlert] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const router = useIonRouter();
 
   const handleLogin = async () => {
+
+    if(isLoading)
+    {
+      return;
+    }
+
     try 
     {
+      setIsLoading(true);
       await signInWithEmailAndPassword(auth, email, password);
       // Redirect ke homepage jika sudah login
       router.push('/home');
@@ -26,6 +34,10 @@ const Login: React.FC = () => {
       console.error('Login failed:', error.message);
       //jika tidak bisa login
       setShowAlert(true);
+    }
+    finally
+    {
+      setIsLoading(false);
     }
   };
 

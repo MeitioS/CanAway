@@ -1,21 +1,21 @@
-// Import necessary React and Ionic components, Firebase modules, and other dependencies
 import React, { useEffect, useState } from 'react';
-import { IonButton, IonInput, IonLabel, IonPage, IonContent, IonGrid, IonRow, IonCol, IonSelect, IonSelectOption } from '@ionic/react';
+import { IonButton, IonInput, IonLabel, IonPage, IonContent, IonGrid, IonRow, IonCol, IonSelect, IonSelectOption, IonItem } from '@ionic/react';
 import { addProductToFirebase, Product, readProductsFromFirebase } from '../components/DataProduct';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { firebase } from '../firebase';
 import { v4 as uuidv4 } from 'uuid';
 import { useHistory } from 'react-router-dom';
 
-// Define the functional component AddMenu
-const AddMenu: React.FC = () => {
+
+const AddMenu: React.FC = () => 
+{
   // Define state variables using the useState hook
   const [newProductName, setNewProductName] = useState<string>('');
   const [newProductImage, setNewProductImage] = useState<File | null>(null);
   const [newShopName, setNewShopName] = useState<string>('');
   const [newCategoryName, setNewCategoryName] = useState<string>('');
-  const [nextProductId, setNextProductId] = useState<string>(''); // Use string type for UUID
-  const history = useHistory(); // Import useHistory hook for programmatic navigation
+  const [nextProductId, setNextProductId] = useState<string>('');
+  const history = useHistory();
 
   // useEffect hook to fetch products and determine the next available ID on component mount
   useEffect(() => {
@@ -68,81 +68,90 @@ const AddMenu: React.FC = () => {
       // Add the product to Firestore
       await addProductToFirebase(newProduct);
 
-      // Log success message and reset state variables
       console.log('Product added successfully!');
       setNewProductName('');
       setNewProductImage(null);
       setNewShopName('');
       setNewCategoryName('');
 
-      // Redirect to EditMenu with the nextProductId as a parameter
-      history.push(`/edit-menu/${nextProductId}`);
-    } catch (error) {
+      history.push('/home');
+    } 
+    catch (error) 
+    {
       console.error('Error adding product to Firebase:', error);
-      alert('Error adding product. Please try again. Check the console for more details.');
+      alert('Error adding product. Please try again.');
     }
   };
 
   // Function to handle image upload
-  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => 
+  {
     const file = event.target.files?.[0];
-    if (file) {
+    if (file) 
+    {
       setNewProductImage(file);
     }
   };
 
-  // JSX structure defining the UI of the AddMenu component
   return (
     <IonPage>
       <IonContent className="ion-padding">
         <IonGrid>
-          {/* Input field for Product Name */}
-          <IonRow className="ion-margin-bottom">
-            <IonCol size="12">
-              <IonLabel position="floating">Product Name</IonLabel>
-              <IonInput
-                type="text"
-                value={newProductName}
-                onIonChange={(e) => setNewProductName(e.detail.value!)}
-              />
-            </IonCol>
-          </IonRow>
-          {/* Input field for Shop Name */}
-          <IonRow className="ion-margin-bottom">
-            <IonCol size="12">
-              <IonLabel position="floating">Shop Name</IonLabel>
-              <IonInput
-                type="text"
-                value={newShopName}
-                onIonChange={(e) => setNewShopName(e.detail.value!)}
-              />
-            </IonCol>
-          </IonRow>
-          {/* Dropdown for selecting Category */}
-          <IonRow className="ion-margin-bottom">
-            <IonCol size="12">
-              <IonLabel position="floating">Category</IonLabel>
-              <IonSelect
-                value={newCategoryName}
-                placeholder="Select category"
-                onIonChange={(e) => setNewCategoryName(e.detail.value)}
-              >
-                <IonSelectOption value="Food">Food</IonSelectOption>
-                <IonSelectOption value="Beverage">Beverage</IonSelectOption>
-              </IonSelect>
-            </IonCol>
-          </IonRow>
-          {/* Input field for uploading Product Image */}
-          <IonRow className="ion-margin-bottom">
-            <IonCol size="12">
-              <IonLabel position="floating">Product Image</IonLabel>
-              <input type="file" accept="image/*" onChange={handleImageUpload} />
-            </IonCol>
-          </IonRow>
-          {/* Button to trigger the handleAddMenu function */}
           <IonRow>
             <IonCol size="12">
-              <IonButton expand="full" onClick={handleAddMenu}>
+              <IonItem className="ion-margin-bottom">
+                <IonLabel position="floating" className="ion-text-uppercase">Product Name</IonLabel>
+                <IonInput
+                  type="text"
+                  value={newProductName}
+                  onIonChange={(e) => setNewProductName(e.detail.value!)}
+                />
+              </IonItem>
+            </IonCol>
+          </IonRow>
+
+          <IonRow>
+            <IonCol size="12">
+              <IonItem className="ion-margin-bottom">
+                <IonLabel position="floating" className="ion-text-uppercase">Shop Name</IonLabel>
+                <IonInput
+                  type="text"
+                  value={newShopName}
+                  onIonChange={(e) => setNewShopName(e.detail.value!)}
+                />
+              </IonItem>
+            </IonCol>
+          </IonRow>
+
+          <IonRow>
+            <IonCol size="12">
+              <IonItem className="ion-margin-bottom">
+                <IonLabel position="floating" className="ion-text-uppercase">Category</IonLabel>
+                <IonSelect
+                  value={newCategoryName}
+                  placeholder="Select category"
+                  onIonChange={(e) => setNewCategoryName(e.detail.value)}
+                  interface="popover"
+                >
+                  <IonSelectOption value="Food">Food</IonSelectOption>
+                  <IonSelectOption value="Beverage">Beverage</IonSelectOption>
+                </IonSelect>
+              </IonItem>
+            </IonCol>
+          </IonRow>
+
+          <IonRow className="ion-margin-bottom">
+            <IonCol size="12">
+              <IonItem className="ion-margin-bottom">
+                <IonLabel position="stacked">Product Image</IonLabel>
+                <input type="file" accept="image/*" onChange={handleImageUpload} />
+              </IonItem>
+            </IonCol>
+          </IonRow>
+
+          <IonRow>
+            <IonCol size="12">
+              <IonButton expand="full" className="ion-margin-top" onClick={handleAddMenu}>
                 Add Menu
               </IonButton>
             </IonCol>
@@ -153,5 +162,5 @@ const AddMenu: React.FC = () => {
   );
 };
 
-// Export the AddMenu component as the default export
+
 export default AddMenu;

@@ -1,10 +1,10 @@
-// Import necessary React and Ionic components, hooks, and functions
 import React, { useEffect, useState } from 'react';
 import { IonButton, IonCol, IonContent, IonGrid, IonLabel, IonPage, IonRow, IonTitle, IonToolbar } from '@ionic/react';
 import { useHistory, useParams } from 'react-router-dom';
 import { Product, readProductsFromFirebase, deleteProductFromFirebase } from '../components/DataProduct';
 
 const DeleteMenu: React.FC = () => {
+
   // Extract product ID from route parameters using useParams
   const { id } = useParams<{ id: string }>();
   const productId = id;
@@ -16,8 +16,10 @@ const DeleteMenu: React.FC = () => {
   const [product, setProduct] = useState<Product | null>(null);
 
   // Fetch the selected product from Firestore when the component mounts
-  useEffect(() => {
-    const fetchProduct = async () => {
+  useEffect(() => 
+  {
+    const fetchProduct = async () => 
+    {
       // Read products from Firestore
       const productsFromFirestore = await readProductsFromFirebase();
       
@@ -32,8 +34,10 @@ const DeleteMenu: React.FC = () => {
   }, [productId]);
 
   // Handle the deletion of the product
-  const handleDeleteProduct = async () => {
-    if (product) {
+  const handleDeleteProduct = async () => 
+  {
+    if (product) 
+    {
       // Delete the product from Firestore
       await deleteProductFromFirebase(product.id);
       
@@ -43,13 +47,15 @@ const DeleteMenu: React.FC = () => {
   };
 
   // Handle the cancellation of the deletion
-  const handleCancel = () => {
+  const handleCancel = () => 
+  {
     // Redirect to the home page without deleting the product
     history.push('/home');
   };
 
   // Render a message if the product is not found
-  if (!product) {
+  if (!product) 
+  {
     return (
       <IonPage>
         <IonContent>
@@ -59,7 +65,6 @@ const DeleteMenu: React.FC = () => {
     );
   }
 
-  // Render the main content of the component
   return (
     <IonPage>
       <IonToolbar>
@@ -67,14 +72,11 @@ const DeleteMenu: React.FC = () => {
       </IonToolbar>
       <IonContent>
         <IonGrid>
-          {/* Display a confirmation message for product deletion */}
           <IonRow>
             <IonCol>
               <IonLabel>Are you sure you want to delete the product "{product.name}"?</IonLabel>
             </IonCol>
           </IonRow>
-          
-          {/* Buttons for confirming or canceling the deletion */}
           <IonRow>
             <IonCol>
               <IonButton onClick={handleDeleteProduct}>Delete</IonButton>

@@ -1,10 +1,6 @@
-// Import profile picture
 import fotoprofil from '../components/Pictures/CanAway.png';
-
-// Import necessary Firebase modules and functions for Firestore and Storage
 import { firebase } from '../firebase'
-import { collection, updateDoc, deleteDoc, getDocs, DocumentData, getFirestore, doc, addDoc, getDoc, setDoc, query, where } from 'firebase/firestore';
-import { deleteObject, getStorage, ref } from 'firebase/storage'
+import { collection, deleteDoc, getDocs, DocumentData, getFirestore, doc, addDoc, getDoc, setDoc } from 'firebase/firestore';
 
 // Function to add a product to the 'products' collection in Firestore
 export const addProductToFirebase = async (product: Product) => {
@@ -86,7 +82,6 @@ export const readProductsFromFirebase = async (): Promise<Product[]> => {
   }
 };
 
-// Define the Product interface
 export interface Product {
   category: string
   id: string;
@@ -96,7 +91,6 @@ export interface Product {
   // price: number;
 }
 
-// Define the Profile interface
 export interface Profile {
   id: number;
   image: any;
@@ -104,7 +98,7 @@ export interface Profile {
   NIM: string;
 }
 
-// Define the Wishlist interface
+
 export interface Wishlist {
   id: number;
   image: any;
@@ -112,10 +106,10 @@ export interface Wishlist {
   // price: number;
 }
 
-// Initialize sample data for the Profile
+
 export const ProfileData: Profile[] = [
   { id: 1, image: fotoprofil, Name: 'CanAway', NIM: '124214' }
 ];
 
-// Initialize an empty array for Wishlist data
+
 export const WishlistData: Wishlist[] = [];

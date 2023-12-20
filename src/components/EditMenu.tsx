@@ -5,9 +5,12 @@ import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { firebase } from '../firebase';
 import { useHistory } from 'react-router';
 
-interface EditMenuProps {
-  match: {
-    params: {
+interface EditMenuProps 
+{
+  match: 
+  {
+    params: 
+    {
       id: string;
     };
   };
@@ -22,7 +25,8 @@ const EditMenu: React.FC<EditMenuProps> = ({ match }) => {
   const [updatedCategoryName, setUpdatedCategoryName] = useState<string>('');
   const history = useHistory();
 
-  useEffect(() => {
+  useEffect(() => 
+  {
     const fetchProduct = async () => {
       try {
         const products = await readProductsFromFirebase();
@@ -45,7 +49,8 @@ const EditMenu: React.FC<EditMenuProps> = ({ match }) => {
     fetchProduct();
   }, [productId]);
 
-  const handleEditMenu = async () => {
+  const handleEditMenu = async () => 
+  {
     if (!updatedProductName.trim() || !updatedShopName.trim() || !updatedCategoryName.trim()) {
       alert('Please fill out all fields.');
       return;
@@ -55,7 +60,8 @@ const EditMenu: React.FC<EditMenuProps> = ({ match }) => {
       let imageUrl = product?.image; // Use the existing image URL if no new image is selected
 
       // Check if a new image is selected
-      if (updatedProductImage) {
+      if (updatedProductImage) 
+      {
         // Upload the new image to Firebase Storage
         const storage = getStorage(firebase);
         const storageRef = ref(storage, `productImages/${updatedProductImage.name}`);
@@ -65,8 +71,8 @@ const EditMenu: React.FC<EditMenuProps> = ({ match }) => {
         imageUrl = await getDownloadURL(storageRef);
       }
 
-      // Ensure that productId is not undefined
-      if (productId) {
+      if (productId) 
+      {
         // Update the product with the new information
         await updateProductInFirebase(productId, {
           name: updatedProductName,
@@ -77,7 +83,7 @@ const EditMenu: React.FC<EditMenuProps> = ({ match }) => {
 
         console.log('Product updated successfully!');
         alert('Product updated successfully!');
-        history.push('/home'); // Redirect to the home page or any other desired page
+        history.push('/home');
       } else {
         console.warn('productId is undefined.');
         alert('Error updating product. Please try again. productId is undefined.');
@@ -96,16 +102,13 @@ const EditMenu: React.FC<EditMenuProps> = ({ match }) => {
   };
 
   if (!product) {
-    // Render loading or error state, or redirect to a different page
     return <div>Loading...</div>;
   }
 
-  // Render the main content of the component
   return (
     <IonPage>
       <IonContent className="ion-padding">
         <IonGrid>
-          {/* Input fields for updating product information */}
           <IonRow className="ion-margin-bottom">
             <IonCol size="12">
               <IonLabel position="floating">Product Name</IonLabel>
@@ -129,7 +132,6 @@ const EditMenu: React.FC<EditMenuProps> = ({ match }) => {
           <IonRow className="ion-margin-bottom">
             <IonCol size="12">
               <IonLabel position="floating">Category</IonLabel>
-              {/* Dropdown for selecting product category */}
               <IonSelect
                 value={updatedCategoryName}
                 placeholder="Select category"
@@ -142,14 +144,12 @@ const EditMenu: React.FC<EditMenuProps> = ({ match }) => {
           </IonRow>
           <IonRow className="ion-margin-bottom">
             <IonCol size="12">
-              {/* Input field for uploading a new product image */}
               <IonLabel position="floating">Product Image</IonLabel>
               <input type="file" accept="image/*" onChange={handleImageUpload} />
             </IonCol>
           </IonRow>
           <IonRow>
             <IonCol size="12">
-              {/* Button for saving the changes */}
               <IonButton expand="full" onClick={handleEditMenu}>
                 Save Changes
               </IonButton>
